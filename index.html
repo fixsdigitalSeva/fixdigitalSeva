@@ -2,7 +2,7 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <title>Aadhaar Portal - Professional Match</title>
+    <title>Aadhaar Portal - Professional Updated</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -27,16 +27,23 @@
         .card-footer-red { position: absolute; bottom: 0; left: 0; width: 100%; height: 28px; border-top: 1.5px solid #ff0000; background: #fff; display: flex; justify-content: center; align-items: flex-end; font-size: 17px; font-weight: 900; letter-spacing: 0.2px; padding-bottom: 1px; }
         .balanced-pai { font-weight: 600; color: #000; margin: 0 1px; font-size: 17px; position: relative; bottom: 0.5px; }
 
-        .footer-back-clean { position: absolute; bottom: 0; left: 0; width: 100%; height: 26px; border-top: 1.2px solid #ff0000; background: #fff; display: flex; justify-content: center; align-items: center; gap: 4px; }
-        .footer-item { display: flex; align-items: center; font-size: 7.5px; font-weight: 700; color: #000; }
-        .footer-item i { margin-right: 2px; font-size: 8px; }
-        .footer-sep { font-weight: bold; font-size: 9px; }
+        /* 3. Footer icons gap fixed */
+        .footer-back-clean { position: absolute; bottom: 0; left: 0; width: 100%; height: 26px; border-top: 1.2px solid #ff0000; background: #fff; display: flex; justify-content: space-evenly; align-items: center; padding: 0 5px; }
+        .footer-item { display: flex; align-items: center; font-size: 7px; font-weight: 700; color: #000; }
+        .footer-item i { margin-right: 3px; font-size: 8px; }
+        .footer-sep { font-weight: bold; font-size: 9px; color: #ccc; }
 
         .photo-frame { width: 68px; height: 82px; position: absolute; left: 12px; top: 60px; object-fit: cover; border: 0.1px solid #ccc; }
         .details { position: absolute; left: 90px; top: 60px; font-size: 10.5px; line-height: 1.3; color: #222; font-weight: 500; }
         #c_num { position: absolute; bottom: 32px; width: 100%; text-align: center; font-size: 18px; font-weight: bold; letter-spacing: 1px; }
-        .address-box { position: absolute; left: 12px; top: 65px; font-size: 8.5px; width: 185px; color: #333; line-height: 1.1; font-weight: 500; }
-        .qr-position-back { position: absolute; right: 10px; top: 65px; width: 95px; height: 95px; }
+        
+        .address-box { position: absolute; left: 12px; top: 65px; font-size: 8px; width: 180px; color: #333; line-height: 1.1; font-weight: 500; }
+        
+        /* 2. QR Code size and position updated */
+        .qr-position-back { position: absolute; right: 8px; top: 58px; width: 110px; height: 110px; }
+        
+        /* Aadhaar number position updated (downward) */
+        #c_num_back { position: absolute; bottom: 30px; width: 100%; text-align: center; font-size: 15px; font-weight: bold; }
 
         .btn-gen { background: #1a237e; color: white; border: none; padding: 15px; border-radius: 30px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; font-size: 16px; }
         .btn-download { background: #27ae60; color: white; border: none; padding: 12px 40px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 18px; display: none; margin-top: 20px; }
@@ -60,7 +67,7 @@
         <div class="row">
             <div class="form-group"><label>State</label><input type="text" id="state" oninput="syncAddress()"></div>
             <div class="form-group"><label>Pincode</label><input type="text" id="pincode" maxlength="6" oninput="syncAddress()"></div>
-             <div class="form-group"><label>DOB (DDMMYYYY)</label><input type="text" id="dob" placeholder="DD/MM/YYYY" maxlength="10"></div>
+             <div class="form-group"><label>DOB (DD/MM/YYYY)</label><input type="text" id="dob" placeholder="DD/MM/YYYY" maxlength="10"></div>
         </div>
         <div class="row">
             <div class="form-group"><label>Gender</label>
@@ -114,8 +121,11 @@
                 <img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Aadhaar_Logo.svg/1200px-Aadhaar_Logo.svg.png" class="header-right">
             </div>
             <div class="address-box"><b>पता:</b> <br> <span id="cb_addr_hi"></span><br><br><b>Address:</b> <br> <span id="cb_addr_en"></span></div>
+            
             <div id="qrcode" class="qr-position-back"></div>
-            <div id="c_num_back" style="position: absolute; bottom: 32px; width: 100%; text-align: center; font-size: 15px; font-weight: bold;"></div>
+            
+            <div id="c_num_back"></div>
+            
             <div class="footer-back-clean">
                 <div class="footer-item"><i class="fa-solid fa-phone"></i> 1947</div>
                 <span class="footer-sep">|</span>
@@ -129,7 +139,6 @@
 </div>
 
 <script>
-    // --- DOB LOCKING LOGIC ---
     document.getElementById('dob').addEventListener('input', function (e) {
         let v = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,2})(\d{0,4})/);
         e.target.value = !v[2] ? v[1] : v[1] + '/' + v[2] + (v[3] ? '/' + v[3] : '');
@@ -163,7 +172,9 @@
         let name = document.getElementById('name_en').value;
         let dob = document.getElementById('dob').value;
         let addr = document.getElementById('addr_en').value;
+        
         if(r.length < 12) { alert("Aadhar No. invalid"); return; }
+        
         document.getElementById('c_num').innerText = r.replace(/(.{4})/g, '$1 ').trim();
         document.getElementById('c_num_back').innerText = document.getElementById('c_num').innerText;
         document.getElementById('c_name_en').innerText = name;
@@ -173,9 +184,18 @@
         document.getElementById('c_gender_hi').innerText = document.getElementById('gender_hi').value;
         document.getElementById('cb_addr_en').innerText = addr;
         document.getElementById('cb_addr_hi').innerText = document.getElementById('addr_hi').value;
+        
+        // 1. Fixed QR Code Data to show Name, DOB, and Address
         document.getElementById('qrcode').innerHTML = "";
         let qrData = `UID: ${r}\nName: ${name}\nDOB: ${dob}\nAddress: ${addr}`;
-        new QRCode(document.getElementById("qrcode"), { text: qrData, width: 95, height: 95, correctLevel : QRCode.CorrectLevel.M });
+        
+        new QRCode(document.getElementById("qrcode"), { 
+            text: qrData, 
+            width: 110, 
+            height: 110, 
+            correctLevel : QRCode.CorrectLevel.L 
+        });
+        
         document.getElementById('print-area').style.display = 'flex';
         document.getElementById('dl-btn').style.display = 'block';
     }
