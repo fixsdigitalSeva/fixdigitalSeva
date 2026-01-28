@@ -27,19 +27,7 @@
         .card-footer-red { position: absolute; bottom: 0; left: 0; width: 100%; height: 28px; border-top: 1.5px solid #ff0000; background: #fff; display: flex; justify-content: center; align-items: flex-end; font-size: 17px; font-weight: 900; letter-spacing: 0.2px; padding-bottom: 1px; }
         .balanced-pai { font-weight: 600; color: #000; margin: 0 1px; font-size: 17px; position: relative; bottom: 0.5px; }
 
-        .footer-back-clean { 
-            position: absolute; 
-            bottom: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 26px; 
-            border-top: 1.2px solid #ff0000; 
-            background: #fff; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            gap: 8px; 
-        }
+        .footer-back-clean { position: absolute; bottom: 0; left: 0; width: 100%; height: 26px; border-top: 1.2px solid #ff0000; background: #fff; display: flex; justify-content: center; align-items: center; gap: 8px; }
         .footer-item { display: flex; align-items: center; font-size: 7.5px; font-weight: 700; color: #000; }
         .footer-item i { margin-right: 2px; font-size: 8px; }
         .footer-sep { font-weight: bold; font-size: 9px; color: #000; }
@@ -49,8 +37,19 @@
         #c_num { position: absolute; bottom: 32px; width: 100%; text-align: center; font-size: 18px; font-weight: bold; letter-spacing: 1px; }
         .address-box { position: absolute; left: 12px; top: 65px; font-size: 8.5px; width: 185px; color: #333; line-height: 1.1; font-weight: 500; }
         
-        /* QR CODE: Size and Position for Best Scanning */
-        .qr-position-back { position: absolute; right: 10px; top: 50px; width: 105px; height: 105px; }
+        /* Fixed QR CODE Position and Size to prevent cutting */
+        .qr-position-back { 
+            position: absolute; 
+            right: 15px; 
+            top: 50px; 
+            width: 95px; 
+            height: 95px; 
+            background: white;
+            padding: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
         .btn-gen { background: #1a237e; color: white; border: none; padding: 15px; border-radius: 30px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; font-size: 16px; }
         .btn-download { background: #27ae60; color: white; border: none; padding: 12px 40px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 18px; display: none; margin-top: 20px; }
@@ -189,14 +188,17 @@
         document.getElementById('cb_addr_hi').innerText = document.getElementById('addr_hi').value;
         document.getElementById('qrcode').innerHTML = "";
         
-        // Data formatted for best scan results
+        // Data optimization for QR Scanning
         let qrData = "UID:" + r + "\nName:" + name + "\nDOB:" + dob + "\nAddress:" + addr;
         
+        // Settings for perfect scan and no cutting
         new QRCode(document.getElementById("qrcode"), { 
             text: qrData, 
-            width: 105, 
-            height: 105, 
-            correctLevel : QRCode.CorrectLevel.L 
+            width: 90, 
+            height: 90, 
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.M 
         });
         
         document.getElementById('print-area').style.display = 'flex';
