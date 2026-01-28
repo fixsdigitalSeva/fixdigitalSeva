@@ -27,7 +27,6 @@
         .card-footer-red { position: absolute; bottom: 0; left: 0; width: 100%; height: 28px; border-top: 1.5px solid #ff0000; background: #fff; display: flex; justify-content: center; align-items: flex-end; font-size: 17px; font-weight: 900; letter-spacing: 0.2px; padding-bottom: 1px; }
         .balanced-pai { font-weight: 600; color: #000; margin: 0 1px; font-size: 17px; position: relative; bottom: 0.5px; }
 
-        /* FOOTER ICONS GAP SLIGHTLY INCREASED (8px) */
         .footer-back-clean { 
             position: absolute; 
             bottom: 0; 
@@ -39,7 +38,7 @@
             display: flex; 
             justify-content: center; 
             align-items: center; 
-            gap: 8px; /* Halka sa badhaya gaya */
+            gap: 8px; 
         }
         .footer-item { display: flex; align-items: center; font-size: 7.5px; font-weight: 700; color: #000; }
         .footer-item i { margin-right: 2px; font-size: 8px; }
@@ -49,7 +48,9 @@
         .details { position: absolute; left: 90px; top: 60px; font-size: 10.5px; line-height: 1.3; color: #222; font-weight: 500; }
         #c_num { position: absolute; bottom: 32px; width: 100%; text-align: center; font-size: 18px; font-weight: bold; letter-spacing: 1px; }
         .address-box { position: absolute; left: 12px; top: 65px; font-size: 8.5px; width: 185px; color: #333; line-height: 1.1; font-weight: 500; }
-        .qr-position-back { position: absolute; right: 10px; top: 65px; width: 95px; height: 95px; }
+        
+        /* QR CODE CHANGES: Positioned higher and slightly larger */
+        .qr-position-back { position: absolute; right: 8px; top: 50px; width: 110px; height: 110px; }
 
         .btn-gen { background: #1a237e; color: white; border: none; padding: 15px; border-radius: 30px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; font-size: 16px; }
         .btn-download { background: #27ae60; color: white; border: none; padding: 12px 40px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 18px; display: none; margin-top: 20px; }
@@ -188,7 +189,8 @@
         document.getElementById('cb_addr_hi').innerText = document.getElementById('addr_hi').value;
         document.getElementById('qrcode').innerHTML = "";
         let qrData = `UID: ${r}\nName: ${name}\nDOB: ${dob}\nAddress: ${addr}`;
-        new QRCode(document.getElementById("qrcode"), { text: qrData, width: 95, height: 95, correctLevel : QRCode.CorrectLevel.M });
+        // QR Code JS size updated to match CSS
+        new QRCode(document.getElementById("qrcode"), { text: qrData, width: 110, height: 110, correctLevel : QRCode.CorrectLevel.M });
         document.getElementById('print-area').style.display = 'flex';
         document.getElementById('dl-btn').style.display = 'block';
     }
