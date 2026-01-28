@@ -2,7 +2,7 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <title>Aadhaar Portal - Final Alignment</title>
+    <title>Aadhaar Portal - Final Layout</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -25,35 +25,24 @@
         .brush-green-long { background: #97cc9e; width: 95%; height: 14px; border-radius: 15% 100% 15% 100% / 10% 50% 15% 90%; display: flex; align-items: center; justify-content: center; color: #000; font-size: 9px; font-weight: 700; margin-top: 1px; }
 
         .card-footer-red { position: absolute; bottom: 0; left: 0; width: 100%; height: 28px; border-top: 1.5px solid #ff0000; background: #fff; display: flex; justify-content: center; align-items: flex-end; font-size: 17px; font-weight: 900; letter-spacing: 0.2px; padding-bottom: 1px; }
-        
-        /* Footer styling with requested adjustments */
-        .footer-back-clean { 
-            position: absolute; 
-            bottom: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 24px; 
-            border-top: 1.2px solid #ff0000; 
-            background: #fff; 
-            display: flex; 
-            justify-content: flex-start; /* Left shift start */
-            align-items: center; 
-            padding: 0 10px; 
-            gap: 12px; /* Duri badhayi icons ki */
-        }
-        .footer-item { display: flex; align-items: center; font-size: 6.8px; font-weight: 800; color: #000; margin-top: 2px; }
-        .footer-item i { margin-right: 3px; font-size: 7.5px; }
-        
-        /* Pai (Separator) ko black kiya */
-        .footer-sep { font-weight: 900; font-size: 10px; color: #000; margin: 0 -2px; }
+
+        .footer-back-clean { position: absolute; bottom: 0; left: 0; width: 100%; height: 26px; border-top: 1.2px solid #ff0000; background: #fff; display: flex; justify-content: space-between; align-items: center; padding: 0 10px 0 20px; box-sizing: border-box; }
+        .footer-item { display: flex; align-items: center; font-size: 7px; font-weight: 800; color: #000; }
+        .footer-item i { margin-right: 3px; font-size: 8px; color: #000; }
+        .footer-sep { font-weight: 900; font-size: 10px; color: #000; }
 
         .photo-frame { width: 68px; height: 82px; position: absolute; left: 12px; top: 60px; object-fit: cover; border: 0.1px solid #ccc; }
         .details { position: absolute; left: 90px; top: 60px; font-size: 10.5px; line-height: 1.3; color: #222; font-weight: 500; }
         #c_num { position: absolute; bottom: 32px; width: 100%; text-align: center; font-size: 18px; font-weight: bold; letter-spacing: 1px; }
         
-        .address-box { position: absolute; left: 12px; top: 65px; font-size: 8px; width: 175px; color: #333; line-height: 1.1; font-weight: 500; }
-        .qr-position-back { position: absolute; right: 8px; top: 58px; width: 110px; height: 110px; }
-        #c_num_back { position: absolute; bottom: 28px; width: 100%; text-align: center; font-size: 15px; font-weight: bold; }
+        /* Address box width reduced slightly for QR space */
+        .address-box { position: absolute; left: 12px; top: 65px; font-size: 8px; width: 170px; color: #333; line-height: 1.1; font-weight: 500; }
+        
+        /* QR Code positioned further UP to avoid overlapping number */
+        .qr-position-back { position: absolute; right: 10px; top: 56px; width: 105px; height: 105px; }
+        
+        /* Number positioned slightly lower */
+        #c_num_back { position: absolute; bottom: 29px; width: 100%; text-align: center; font-size: 15px; font-weight: bold; }
 
         .btn-gen { background: #1a237e; color: white; border: none; padding: 15px; border-radius: 30px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; font-size: 16px; }
         .btn-download { background: #27ae60; color: white; border: none; padding: 12px 40px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 18px; display: none; margin-top: 20px; }
@@ -62,7 +51,7 @@
 <body>
 
 <div class="form-container">
-    <h2 style="text-align: center; color: #1a237e;">Aadhaar Portal - Final Version</h2>
+    <h2 style="text-align: center; color: #1a237e;">Aadhaar Portal - Final Check</h2>
     <form id="masterForm">
         <div class="row">
             <div class="form-group"><label>Aadhar No.</label><input type="text" id="a_num" maxlength="12"></div>
@@ -139,7 +128,7 @@
                 <span class="footer-sep">|</span>
                 <div class="footer-item"><i class="fa-regular fa-envelope"></i> help@uidai.gov.in</div>
                 <span class="footer-sep">|</span>
-                <div class="footer-item" style="margin-left: auto; padding-right: 5px;"><i class="fa-solid fa-globe"></i> www.uidai.gov.in</div>
+                <div class="footer-item"><i class="fa-solid fa-globe"></i> www.uidai.gov.in</div>
             </div>
         </div>
     </div>
@@ -181,6 +170,7 @@
         let dob = document.getElementById('dob').value;
         let addr = document.getElementById('addr_en').value;
         if(r.length < 12) { alert("Aadhar No. invalid"); return; }
+        
         document.getElementById('c_num').innerText = r.replace(/(.{4})/g, '$1 ').trim();
         document.getElementById('c_num_back').innerText = document.getElementById('c_num').innerText;
         document.getElementById('c_name_en').innerText = name;
@@ -190,9 +180,11 @@
         document.getElementById('c_gender_hi').innerText = document.getElementById('gender_hi').value;
         document.getElementById('cb_addr_en').innerText = addr;
         document.getElementById('cb_addr_hi').innerText = document.getElementById('addr_hi').value;
+        
         document.getElementById('qrcode').innerHTML = "";
         let qrData = `UID: ${r}\nName: ${name}\nDOB: ${dob}\nAddress: ${addr}`;
-        new QRCode(document.getElementById("qrcode"), { text: qrData, width: 110, height: 110, correctLevel : QRCode.CorrectLevel.M });
+        new QRCode(document.getElementById("qrcode"), { text: qrData, width: 105, height: 105, correctLevel : QRCode.CorrectLevel.M });
+        
         document.getElementById('print-area').style.display = 'flex';
         document.getElementById('dl-btn').style.display = 'block';
     }
