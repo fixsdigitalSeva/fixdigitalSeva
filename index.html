@@ -79,8 +79,8 @@
         <div class="row">
             <div class="form-group"><label>Gender</label>
                 <select id="gender" onchange="syncAddress()">
-                    <option value="MALE">MALE</option>
-                    <option value="Female">Female</option>
+                    <option value="MALE">MALE<option>
+                    <option value="FEMALE">FEMALE<option>
                 </select>
             </div>
             <div class="form-group"><label>Name (Hindi)</label><input type="text" id="name_hi"></div>
@@ -157,7 +157,7 @@
         let g = document.getElementById('gender').value;
         let rel_en = (g === "MALE") ? "S/O: " : "W/O: ";
         let rel_hi = (g === "MALE") ? "आत्मज: " : "अर्धांगिनी: ";
-        document.getElementById('gender_hi').value = (g === "MALE") ?  "पुरुष": "महिला";
+        document.getElementById('gender_hi').value = (g === "MALE") ? "पुरुष" : "महिला";
         let addrBody = [document.getElementById('fname_en').value, document.getElementById('h_g_v_c').value, document.getElementById('p_office').value, document.getElementById('dist').value, document.getElementById('state').value, document.getElementById('pincode').value].filter(x => x).join(', ');
         document.getElementById('addr_en').value = rel_en + addrBody;
         if(addrBody) { 
